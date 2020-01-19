@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const routes = require('./routes')
+const cors = require('cors')
 
 const app = express()
 const port = 3333
@@ -11,7 +12,6 @@ mongoose.connect('mongodb+srv://oministack:semana10@cluster0-gxtnp.mongodb.net/w
   useUnifiedTopology: true
 })
 
-app.use(express.json());
 
 // PARAMETROS:
 // query params --> req.query (filtros, ordenacao, paginacao)
@@ -24,6 +24,10 @@ app.use(express.json());
 //   })
 // })
 
+app.use(cors({
+  origin: 'http://localhost:3000'
+}))
+app.use(express.json());
 app.use(routes)
 
 app.listen(port, () => console.log(`Example app listening on port port!`))
